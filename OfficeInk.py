@@ -58,7 +58,6 @@ class dashboard:
     show_quote : int
     show_quote_live : int
     quote_length : int
-    show_comic : int
     show_dadjoke : int
     show_dadjoke_live : int
     quote : str
@@ -174,7 +173,6 @@ def get_dashboard_config_data(file_path:str):
     
     data['show_quote-id'] = parser.get("feature-config", "show_quote")
     data['show_quote_live-id'] = parser.get("feature-config", "show_quote_live")
-    data['show_comic-id'] = parser.get("feature-config", "show_comic")
     data['show_messages-id'] = parser.get("feature-config", "show_messages")
     data['show_dadjoke-id'] = parser.get("feature-config", "show_dadjoke")
     data['live_dadjoke-id'] = parser.get("feature-config", "live_dadjoke")
@@ -215,12 +213,6 @@ def get_dashboard_config_data(file_path:str):
         dashboard.show_quote_live = 1
     else : 
         dashboard.show_quote_live = 0
-
-
-    if data['show_comic-id'] == "TRUE":
-        dashboard.show_comic = 1
-    else : 
-        dashboard.show_comic = 0
 
     if data['show_dadjoke-id'] == "TRUE":
         dashboard.show_dadjoke = 1
@@ -1369,50 +1361,6 @@ def daily_comic():
         ####   ####   ####
         ####   ####   ####
 
-        ####################### COMIC ###############################
-        
-    if dashboard.show_comic == 1:
-        applog("Dashboard","Comic of the day feature : ON")
-        shape = [(0, 0), (screen.width, screen.height)] 
-  
-  
-        # create rectangle image 
-        draw_black.rectangle(shape, fill =white) 
-        draw_red.rectangle(shape, fill =white) 
-
-
-        comic_file = getcomic(imgdir+"/agile")
-        comic_image = Image.open(os.path.join(imgdir+"/agile", comic_file))
-        if comic_image.size[0] > screen.width:
-            comic_scale_factor = (screen.width - 10) / comic_image.size[0]
-            applog("Comic Feature","Scaling the comic down to "+str(comic_scale_factor))
-            comic_image = comic_image.resize((int(comic_image.size[0] * comic_scale_factor), int(comic_image.size[1] * comic_scale_factor)))
-            applog("Comic Feature","Comic size is now "+str(comic_image.size[0])+" by "+str(comic_image.size[1]))
-        elif comic_image.size[0] < screen.width:
-            comic_scale_factor = comic_image.size[0] / (screen.width - 10)
-            applog("Comic Feature","Scaling the comic up to "+str(comic_scale_factor))
-            comic_image = comic_image.resize((int(comic_image.size[0] / comic_scale_factor), int(comic_image.size[1] / comic_scale_factor)))
-            applog("Comic Feature","Comic size is now "+str(comic_image.size[0])+" by "+str(comic_image.size[1]))
-
-        if comic_image.size[1] > screen.height:
-            comic_scale_factor = (screen.height - 10) / comic_image.size[1]
-            applog("Comic Feature","Scaling the comic down to "+str(comic_scale_factor))
-            comic_image = comic_image.resize((int(comic_image.size[1] * comic_scale_factor), int(comic_image.size[1] * comic_scale_factor)))
-            applog("Comic Feature","Comic size is now "+str(comic_image.size[0])+" by "+str(comic_image.size[0]))
-        elif comic_image.size[1] < screen.height:
-            comic_scale_factor = comic_image.size[1] / (screen.height - 10)
-            applog("Comic Feature","Scaling the comic up to "+str(comic_scale_factor))
-            comic_image = comic_image.resize((int(comic_image.size[1] / comic_scale_factor), int(comic_image.size[1] / comic_scale_factor)))
-            applog("Comic Feature","Comic size is now "+str(comic_image.size[0])+" by "+str(comic_image.size[0]))
-
-
-        Cx = int((screen.width/2)) - int((comic_image.size[0])/2)
-        Cy = int(y)
-
-        imageB.paste(comic_image,(Cx,Cy))
-        screen_y = screen_y + comic_image.size[1]
-    else:
-        applog("Dashboard","Comic of the day feature : OFF")
 
         ###########################
         # End of Message of the day
