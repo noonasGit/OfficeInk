@@ -1,6 +1,6 @@
 # OfficeInk Project
 
-Inline-style: 
+The finished product: 
 ![alt text](https://github.com/noonasGit/OfficeInk/blob/main/IMG_8304.jpeg "The Frame Project")
 
 ## Welcome to my little tinker toy project.
