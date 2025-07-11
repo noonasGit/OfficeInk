@@ -1,0 +1,16 @@
+Half-Done Is Not Done. A half-built car simply ties up resources that could be used to create value or save money.@Jeff Sutherland in Scrum
+The most expensive way to test your idea is to build production quality software.@Jeff Patton, agile coach and trainer
+The person who grasps principles can successfully select his own methods. The person who tries methods, ignoring principles, is sure to have trouble.@Harrington Emerson, management consultant
+Remember: it’s not the documentation that needs to be kept in sync, but the people.@George Dinwiddie, software development consultant and coach
+Intelligence is the ability to adapt to change.”@Various sources
+Life is really simple, but we insist on making it complicated.@Confucius
+Our greatest glory is, not in never falling, but in rising every time we fall.@Oliver Goldsmith
+If you set your goals ridiculously high and it’s a failure, you will fail above everyone else’s success.@James Cameron
+The important thing is not your process, the important thing is your process for improving your process.@Henrik Kniberg, Agile coach
+There should be no shame in admitting to a mistake; after all, we really are only admitting that we are now wiser than we once were.@Greg McKeown
+Build less, start sooner.@Jim Highsmith
+Stop starting and start finishing!@Andy Hiles
+Adding manpower to a late software project makes it later.@Fred Brooks
+Successful organizations have cultures in which evidence-based decision making is the norm rather than the exception.@Ray Dalio
+Don’t move information to authority, move authority to the information.@L. David Marquet
+Practicing Scrum with a project mindset is like playing hockey with a basketball.@Rick Waters
