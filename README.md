@@ -62,7 +62,7 @@ type crontab -e
 
 save and exit
 
-Ensure that the `shutdown-after-run=TRUE` is set in the `OfficeInk_dashboard.ini` file is set so that it will shut down afer run to save battery.
+Ensure that the `shutdown-after-run=TRUE` is set in the `OfficeInk_dashboard.ini` file is set so that it will shut down after run to save battery.
 
 When `show_quote_live=FALSE` is set, it will not connect to the Internet to get a quote but will use the supplied quotes.txt file to select a random quote.
 
