@@ -9,6 +9,8 @@ I created this project to make a screen for the Office that would share insiprat
 
 It has been made after hours of hacking around with Kobo e-readers as well as making other projects with e-ink screens.
 
+The Graphics are all hand-made by me, the fonts are opensource / free to use
+
 ## Hardware for this project
 
 Raspberry Pi Zero W.
@@ -45,7 +47,7 @@ You can now modify the OfficeInk_dashboard.ini file to your preferences.
 
 ## Options running the frame
 
-When you are using a PiSugar, I recommend configuring the automating wakeup once daily (I set mine to 5am)
+When you are using a PiSugar, I recommend configuring the automatic wakeup once daily (I set mine to 5am, Can be done via the web UI for the PiSugar) 
 
 In the config you can set the dashboard to shutdown the RasPi to shut down after run so that you the battery will last ~ 3 weeks.
 
