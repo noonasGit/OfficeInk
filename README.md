@@ -1,4 +1,9 @@
 OfficeInk Project
+Inline-style: 
+![alt text](https://github.com/noonasGit/OfficeInk/blob/main/IMG_8304.jpeg "The Frame Project")
+
+
+
 
 Welcome to my little tinker toy project.
 I created this project to make a screen for the Office that would share insiprational or funny messages in a simple and approachable way.
