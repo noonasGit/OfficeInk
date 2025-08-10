@@ -25,11 +25,9 @@ from aqidata import current_aqi, get_aqi_status_data, aqi_trend, write_aqi_stats
 from getquote import quoteoftheday, addquotetofile, quotefromfile
 from dadjoke import getdadjoke, dadjokefromfile
 from garbage_schedule import get_garbage_status, get_garbage_config_data
-from pi_info import getRAMinfo, getDiskSpace, getCPUtemperature, getCPUuse
-
-from pisugar import *
 
 import configparser
+
 
 from dataclasses import dataclass
 
@@ -95,6 +93,7 @@ class performance:
 
 @dataclass
 class battery:
+    pisugar : bool
     level : int
     state : str
 
@@ -112,6 +111,15 @@ class font:
 
     SleepFont  :FreeTypeFont
     SleepFont_foot :FreeTypeFont
+
+battery.pisugar = False
+try:
+    from pisugar import *
+    battery.pisugar = True
+    print("PiSugar found, loading levels")
+except:
+    print("No PiSugar found")
+
 
 def get_dashboard_config_data(file_path:str):
 
@@ -1712,11 +1720,7 @@ def main():
     dashboard.show_date = 0
     performance.countr = 0
     trend = 0
-    ram = getRAMinfo()
-    performance.usedram = int(ram[2])
-    performance.previousram = performance.usedram
     applog("Inkscreen","Evening hour is set to: "+str(hourglass.evening_hour))
-    applog("Inkscreen","Initial used RAM is: "+str(performance.usedram))
     if "nowelcome" in performance.cli:
         applog("Inkscreen","Skipping welcome screen...")
     else:
@@ -1752,40 +1756,6 @@ def main():
             applog("Inkscreen","Its not a workday...")
             applog("Inkscreen","Time to go to sleep...")
             weekend_screen()
-            gotosleep()
-        ram = getRAMinfo()
-        performance.usedram = int(ram[2])
-        if performance.previousram > performance.usedram :
-            trend = -1
-            performance.ramincrease = performance.previousram - performance.usedram
-        if performance.previousram < performance.usedram :
-            trend = 1
-            performance.ramincrease = performance.usedram - performance.previousram
-
-        if performance.previousram == performance.usedram :
-            trend = 0
-            performance.ramincrease = performance.usedram - performance.previousram
-            
-        performance.freeram = int(ram[1])
-        
-        cpuT = getCPUtemperature()
-        cpuU = getCPUuse()
-        applog("System Performance","********************************")
-        applog("System Performance","RAM: "+str(performance.usedram)+" used, and "+str(performance.freeram)+" free")
-        applog("System Performance","RAM Previous was: "+str(performance.previousram))
-        applog("System Performance","Battery Lewvel: "+str(battery.level))
-        if trend == 1:
-            applog("System Performance","Used RAM Increase by: "+str(performance.ramincrease))
-        if trend == -1 :
-            applog("System Performance","Used RAM Decresed by: "+str(performance.ramincrease))
-        if trend == 0 :
-            applog("System Performance","Used RAM unchanged")
-
-
-        applog("System Performance","CPU Usage: "+cpuU)
-        applog("System Performance","********************************")
-        performance.previousram = performance.usedram
-
         if performance.keepalive == 0:
 
             applog("System startup","Keepalive set to OFF")
