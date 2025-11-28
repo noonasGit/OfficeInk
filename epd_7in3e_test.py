@@ -1,0 +1,96 @@
+#!/usr/bin/python
+# -*- coding:utf-8 -*-
+import sys
+import os
+picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'pic')
+libdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'lib')
+fontdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'fonts')
+
+from datetime import datetime
+
+if os.path.exists(libdir):
+    sys.path.append(libdir)
+
+import logging
+from waveshare_epd import epd7in3f
+import time
+from PIL import Image,ImageDraw,ImageFont
+import traceback
+from getpibat import get_pibatt
+from dataclasses import dataclass
+
+try:
+    from pisugar import *
+    print("PiSugar found, initializing battery support...")
+except:
+    print("No PiSugar found")
+
+
+
+@dataclass
+class battery:
+    #pisugar : bool
+    level : int
+    state : str
+
+logging.basicConfig(level=logging.DEBUG)
+
+battlevel = get_pibatt()
+
+print("Battery Level: "+str(battlevel.level)+"%")
+print("Battery State: "+battlevel.state)
+
+time.sleep(30)
+
+
+red = "#FF0000"
+green = "#00FF00"
+blue = "#0000FF" 
+yellow = "#FFFF00"
+
+try:
+    logging.info("epd7in3f Demo")
+
+    epd = epd7in3f.EPD()   
+    logging.info("init and Clear")
+    epd.init()
+    epd.Clear()
+    font24 = ImageFont.truetype('fonts/EricssonCapitalTT.ttf', 24)
+    font18 = ImageFont.truetype('fonts/EricssonCapitalTT.ttf', 18)
+    font40 = ImageFont.truetype('fonts/EricssonCapitalTT.ttf', 40)
+    
+    # Drawing on the image
+    logging.info("1.Drawing on the image...")
+    Himage = Image.new('RGB', (epd.width, epd.height), epd.WHITE)  # 255: clear the frame
+    draw = ImageDraw.Draw(Himage)
+    draw.text((5, 0), 'RED TEXT', font = font40, fill = red)
+    draw.text((5, 20), 'YELLOW TEXT', font = font40, fill = yellow)
+    draw.text((5, 45), u'GREEN TEXT', font = font40, fill = green)
+    draw.text((5, 85), u'BLUE TEXT', font = font40, fill = blue)
+    draw.text((5, 125), u'BLACK TEXT', font = font40, fill = epd.BLACK)
+
+    draw.line((5, 170, 80, 245), fill = epd.BLUE)
+    draw.line((80, 170, 5, 245), fill = epd.YELLOW)
+    draw.rectangle((5, 170, 80, 245), outline = epd.BLACK)
+    draw.rectangle((90, 170, 165, 245), fill = epd.GREEN)
+    draw.arc((5, 250, 80, 325), 0, 360, fill = epd.RED)
+    draw.chord((90, 250, 165, 325), 0, 360, fill = epd.YELLOW)
+    epd.display(epd.getbuffer(Himage))
+    time.sleep(3)
+    
+    # read bmp file 
+    #logging.info("2.read bmp file")
+    #Himage = Image.open(os.path.join(picdir, '7in3e.bmp'))
+    #epd.display(epd.getbuffer(Himage))
+    #time.sleep(3)
+    
+    
+    epd.sleep()
+        
+except IOError as e:
+    logging.info(e)
+    
+except KeyboardInterrupt:    
+    logging.info("ctrl + c:")
+    epd7in3e.epdconfig.module_exit(cleanup=True)
+    exit()

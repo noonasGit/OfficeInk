@@ -1,7 +1,7 @@
 Half-Done Is Not Done. A half-built car simply ties up resources that could be used to create value or save money.@Jeff Sutherland in Scrum
 The most expensive way to test your idea is to build production quality software.@Jeff Patton, agile coach and trainer
 The person who grasps principles can successfully select his own methods. The person who tries methods, ignoring principles, is sure to have trouble.@Harrington Emerson, management consultant
-Remember: it’s not the documentation that needs to be kept in sync, but the people.@George Dinwiddie, software development consultant and coach
+Remember: it’s not the documentation that needs to be kept in sync, but the people.@George Dinwiddie
 Intelligence is the ability to adapt to change.”@Various sources
 Life is really simple, but we insist on making it complicated.@Confucius
 Our greatest glory is, not in never falling, but in rising every time we fall.@Oliver Goldsmith
