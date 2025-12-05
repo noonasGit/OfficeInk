@@ -287,9 +287,10 @@ def get_ip():
             applog("System IP Address is",performance.ip_address)
             network_status = True
         except Exception as e:
-            print("exc. ignored {}".format(e))
+            print("Attempt #"+str(I)+" cound not get IP {}".format(e))
             performance.ip_address = "no_ip"
             applog("System IP Address is","NO IP FOUND")
+            break
         if network_status:
             applog("Network found","Exiting after "+str(I)+" times")
             break
@@ -339,6 +340,7 @@ def welcome_screen(delay_time_in_sec):
     font.SleepFont = ImageFont.truetype("fonts/EricssonCapitalTT.ttf",int(screen.width/20))
     font.SleepFont_sub = ImageFont.truetype("fonts/EricssonCapitalTT.ttf",int(screen.width/24))
     font.SleepFont_foot = ImageFont.truetype("fonts/EricssonCapitalTT.ttf",int(screen.width/38))
+    font.SleepFont_head = ImageFont.truetype("fonts/SF-Compact-Rounded-Bold.ttf",int(screen.width/32))
 
     salute_text = "Hello"
     if hourglass.curenttime >= 0 and hourglass.curenttime <=6:
@@ -358,7 +360,7 @@ def welcome_screen(delay_time_in_sec):
     draw_color = ImageDraw.Draw(ImageC)
     if performance.ip_address == "no_ip":
         applog("Welcome Screen" ,"loading no-wifi icon") 
-        net_icon = Image.open(os.path.join(picdir, 'wifi_off.png'))
+        net_icon = Image.open(os.path.join(picdir, 'wifi_off_c.png'))
         gx = 20
         gy = 20
         ImageC.paste(net_icon, (gx,gy), net_icon)
@@ -390,6 +392,11 @@ def welcome_screen(delay_time_in_sec):
     sY = sY - int(test_t_h)
     ImageC.paste(welome_icon, (sX,sY), welome_icon)
 
+    QR_Icon = Image.open(os.path.join(picdir, 'QRGit.png'))
+    qX = int(screen.width) - int(QR_Icon.size[0]+5)
+    qY = 5
+    ImageC.paste(QR_Icon, (qX,qY), QR_Icon)
+
 
     sX = int(screen.middle_w) - int(test_t_w/2)
     sY = int(sY + welome_icon.size[1])
@@ -398,25 +405,32 @@ def welcome_screen(delay_time_in_sec):
 
     header_Month_Date = datetime.now().strftime("%b %-d")
 
+    fill_color = red
 
     wakeup_string = "System time is "+header_Month_Date+", "+datetime.now().strftime("%H:%M")
     t_g, t_g, test_t_w, test_t_h = draw_color.textbbox((0,0),wakeup_string, font=font.SleepFont_sub)
     sX = int(screen.middle_w) - int(test_t_w/2)
     sY = sY + welcome_y
     draw_color.text((sX, sY), wakeup_string, font = font.SleepFont_sub, fill = black)
-
+    
     wakeup_string = "Not configured to sleep"
-    if dashboard.shutdown_after_run == 1:
-        wakeup_string = "Shutwown after run: "+str(dashboard.shutdown_after_run)
 
     if dashboard.shutdown_at_hour == 1:
-        wakeup_string = wakeup_string+" Shutdown @"+str(dashboard.shutdown_hour)
+        wakeup_string = wakeup_string+"@"+str(dashboard.shutdown_hour)
+        fill_color = green
+    if dashboard.shutdown_after_run == 1:
+        wakeup_string = "Shutting down after run"
+        fill_color = green
+
     if performance.keepalive == 1:
-        wakeup_string = wakeup_string + " Keepalive ON"
+        wakeup_string = "Keepalive ON"
+        fill_color = red
+
     t_g, t_g, test_t_w, test_t_h = draw_color.textbbox((0,0),wakeup_string, font=font.SleepFont_sub)
     sX = int(screen.middle_w) - int(test_t_w/2)
     sY = sY + 40
-    draw_color.text((sX, sY), wakeup_string, font = font.SleepFont_sub, fill = black)
+
+    draw_color.text((sX, sY), wakeup_string, font = font.SleepFont_sub, fill = fill_color)
 
 
     if dashboard.show_power == 1:
@@ -527,7 +541,7 @@ def daily_quotes():
     draw_color = ImageDraw.Draw(ImageC)
 
     
-    x_master = 10
+    x_master = 20
     y_master = 10
 
     x = x_master
@@ -1139,7 +1153,7 @@ def daily_dadjokes():
     draw_color = ImageDraw.Draw(ImageC)
 
     
-    x_master = 10
+    x_master = 20
     y_master = 10
 
     x = x_master
@@ -1201,16 +1215,18 @@ def daily_dadjokes():
             if qmaxtries > 10:
                 break
             if qll >  qml:
-                applog("Message of the day" ,"Message Feature : Attempt: "+str(qmaxtries))
+                applog("DadJoke of the day" ,"Message Feature : Attempt: "+str(qmaxtries))
             else:
-                applog("Message of the day" ,"Joke lenght is "+str(qll))
+                applog("DadJoke of the day" ,"Joke lenght is "+str(qll))
         if qll == 0 or qll > qml:
-            applog("Quote of the day" ,"Max attempts to get a short enough quote exhausted.")
+            applog("DadJoke of the day" ,"Max attempts to get a short enough quote exhausted.")
             #Just in case we could not find a short enough quote in 10 attempts.
             dashboard.dadjoke = "Sorry, No Dad Joke Quote found, I would wait for another..."
             hourglass.day = -1
 
         daily_message = dashboard.dadjoke
+        #daily_message = "Why is it a bad idea to eat a clock? Because it's very time consuming."
+
         
         #print("Now trying to slice the text in chunks")
         text_g, text_g, test_t_w, test_t_h = draw_color.textbbox((0,0),daily_message, font=font.SFQuote)
