@@ -1,7 +1,9 @@
 # OfficeInk Project
 
 The finished product: 
-![alt text](https://github.com/noonasGit/OfficeInk/blob/main/IMG_8304.jpeg "The Frame Project")
+![alt text](https://github.com/noonasGit/OfficeInk/blob/main/IMG_5520.jpeg "The Frame Project")
+
+![alt text](https://github.com/noonasGit/OfficeInk/blob/main/IMG_5521.jpeg "The Frame Project (Back)")
 
 ## Welcome to my little tinker toy project.
 
@@ -22,6 +24,8 @@ PiSugar 3 (https://www.pisugar.com)
 IKEA Frame for the e-ink screen (https://www.ikea.com/ca/en/p/roedalm-frame-birch-effect-70548888/)
 
 I 3D pritned a mask (if you can cut out the paper one - more power to you) :)
+
+Later version was completely 3D printed.
 
 ## Setup / Installation
 
