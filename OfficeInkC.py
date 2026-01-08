@@ -1095,7 +1095,7 @@ def daily_agile_quotes():
         applog("Dasboard","Show Power is OFF")
         dashboard.message_state+=1
         hourglass.last_refresh = "Agile Quote, "+hourglass.last_refresh
-        refresh_mesasage = "Agile Quote, "+hourglass.last_refresh
+        refresh_mesasage = hourglass.last_refresh
         applog("Dashoard","Show the last refresh text at the bottom, centered "+refresh_mesasage)
 
     t_G, t_G, test_t_w, test_t_h = draw_color.textbbox((0,0),refresh_mesasage, font=font.SFMonth)
